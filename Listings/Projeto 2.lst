@@ -1,0 +1,106 @@
+A51 MACRO ASSEMBLER  PROJETO_2                                                            03/07/2024 15:22:15 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\Projeto 2.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Projeto 2.a51 SET(SMALL) DEBUG PRINT(.\Listings\Projeto 2.lst) OBJECT(.
+                      \Objects\Projeto 2.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+  0090                 1     Led                     EQU P1
+  00B0                 2     Is                      EQU     P3.0
+  00B1                 3     Ir                      EQU     P3.1
+                       4     
+----                   5     CSEG    AT      0000H
+0000 804E              6     JMP             Inicio
+----                   7     CSEG    At 0050H
+                       8             
+0050                   9     Inicio:
+0050 7590BD           10             MOV Led, #10111101b                     ;Estado inicial
+                      11             
+0053                  12     TestarIs:
+0053 20B02D           13             JB Is, TestarIr                         ;Se Ic = 1 -> TestarIr
+                      14             
+                      15             
+                      16             ;---Inicio de Sequencia---
+                      17             ;Esquerda 1
+0056 E590             18             MOV A, Led                                      ;Passar Led para Acc
+0058 23               19             RL A                                            ;Rotar 
+0059 F590             20             MOV Led, A                                      ;Passar Acc para Led
+005B 1188             21             CALL fun
+                      22             
+005D 30B1F0           23             JNB Ir, Inicio                          ;Se Ir = 0 -> Inicio
+                      24             
+                      25             ;Direita 2
+0060 E590             26             MOV A, Led                                      ;Passar Led para Acc
+0062 03               27             RR A                                            ;Rotar 
+0063 03               28             RR A                                            ;Rotar
+0064 F590             29             MOV Led, A                                      ;Passar Acc para Led
+0066 1188             30             CALL fun
+                      31     
+0068 30B1E5           32             JNB Ir, Inicio                          ;Se Ir = 0 -> Inicio
+                      33     
+                      34             ;Esquerda 3
+006B E590             35             MOV A, Led                                      ;Passar Led para Acc
+006D 23               36             RL A                                            ;Rotar 
+006E 23               37             RL A                                            ;Rotar
+006F 23               38             RL A                                            ;Rotar
+0070 F590             39             MOV Led, A                                      ;Passar Acc para Led
+0072 1188             40             CALL fun
+                      41             
+0074 30B1D9           42             JNB Ir, Inicio                          ;Se Ir = 0 -> Inicio
+                      43             
+                      44             ;Direita 4
+0077 E590             45             MOV A, Led                                      ;Passar Led para Acc
+0079 03               46             RR A                                            ;Rotar 
+007A 03               47             RR A                                            ;Rotar
+007B 03               48             RR A                                            ;Rotar 
+007C 03               49             RR A                                            ;Rotar
+007D F590             50             MOV Led, A                                      ;Passar Acc para Led
+007F 1188             51             CALL fun
+0081 80D0             52             JMP TestarIs
+                      53     
+0083                  54     TestarIr:
+0083 20B1CD           55             JB Ir, TestarIs                         ;Se Ir = 1 -> TestarIs
+0086 80C8             56             JMP Inicio
+                      57     
+A51 MACRO ASSEMBLER  PROJETO_2                                                            03/07/2024 15:22:15 PAGE     2
+
+                      58     
+0088                  59     Fun:
+0088 79FF             60             MOV R1, #0xFF
+008A 7AFF             61             MOV R2, #0xFF
+008C 7B10             62             MOV R3, #0x10
+008E                  63             Loop: 
+008E D9FE             64                     DJNZ R1, Loop
+0090 DAFC             65                     DJNZ R2, Loop
+0092 DBFA             66                     DJNZ R3, Loop
+0094 22               67             RET
+                      68     
+0095 80B9             69     JMP Inicio
+                      70     END
+A51 MACRO ASSEMBLER  PROJETO_2                                                            03/07/2024 15:22:15 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+FUN. . . . . . . .  C ADDR   0088H   A   
+INICIO . . . . . .  C ADDR   0050H   A   
+IR . . . . . . . .  B ADDR   00B0H.1 A   
+IS . . . . . . . .  B ADDR   00B0H.0 A   
+LED. . . . . . . .  D ADDR   0090H   A   
+LOOP . . . . . . .  C ADDR   008EH   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+TESTARIR . . . . .  C ADDR   0083H   A   
+TESTARIS . . . . .  C ADDR   0053H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
